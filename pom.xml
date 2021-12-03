@@ -9,8 +9,10 @@
     <properties>
         <java.version>1.8</java.version>
         <pact.version>4.1.7</pact.version>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <pitest.version>1.4.3</pitest.version>
     </properties>
 
     <dependencies>
@@ -24,11 +26,7 @@
             <artifactId>junit</artifactId>
             <version>${pact.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest</artifactId>
-            <version>1.6.6</version>
-        </dependency>
+
     </dependencies>
 
 
@@ -42,6 +40,17 @@
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
+                <version>${pitest.version}</version>
+                <executions>
+                    <execution>
+                        <id>pit-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
                 <configuration>
                     <targetClasses>
                         <param>br.ce.wcaquino.consumer.*</param>
