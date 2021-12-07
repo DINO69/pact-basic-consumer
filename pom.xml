@@ -39,6 +39,26 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>au.com.dius.pact.provider</groupId>
+                <artifactId>maven</artifactId>
+                <version>${pact.version}</version>
+                <configuration>
+                    <serviceProviders>
+                        <serviceProvider>
+                            <name>test_provider</name>
+                            <protocol>http</protocol>
+                            <host>localhost</host>
+                            <port>8000</port>
+                            <path>/</path>
+                        </serviceProvider>
+                    </serviceProviders>
+                    <pactBrokerUrl>http://localhost:9080/</pactBrokerUrl>
+                    <pactBrokerUsername>user1</pactBrokerUsername>
+                    <pactBrokerPassword>userpasswd</pactBrokerPassword>
+                    <trimSnapshot>true</trimSnapshot>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
