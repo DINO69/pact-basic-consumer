@@ -1,6 +1,8 @@
 package br.ce.wcaquino.consumer.tasks.service;
 
 
+import au.com.dius.pact.consumer.dsl.DslPart;
+import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit.PactProviderRule;
 import au.com.dius.pact.consumer.junit.PactVerification;
@@ -30,25 +32,32 @@ public class TasksConsumerPactTest {
     public RequestResponsePact createPactThenReturnNullWhenNoTaskFound(PactDslWithProvider builder) {
         return builder
                 .given("Then Return Null When No Task Found")
-                .uponReceiving("ExampleJavaConsumerPactRuleTest test interaction")
-                .path("/todo/1")
-                .method("GET")
+                .uponReceiving("No tasks Found")
+                    .path("/todo/1")
+                    .method("GET")
                 .willRespondWith()
-                .status(200)
-                .body("")
+                    .status(200)
+                    .body("")
                 .toPact();
     }
 
     @Pact(provider = "test_provider", consumer = "test_consumer")
     public RequestResponsePact createPactThenReturnTask1WhenTaskFound(PactDslWithProvider builder) {
+        DslPart body = new PactDslJsonBody()
+                .numberType("id",1L)
+                .stringType("task","task")
+                .stringType("dueDate","dueDate");
+
+
         return builder
                 .given("Then Return Task 1 When Task Found")
-                .uponReceiving("ExampleJavaConsumerPactRuleTest test interaction")
-                .path("/todo/1")
-                .method("GET")
+                .uponReceiving("Found Taks number 1")
+                    .path("/todo/1")
+                    .method("GET")
                 .willRespondWith()
-                .status(200)
-                .body("{\"id\":\"1\",\"task\":\"task\",\"dueDate\":\"dueDate\"}")
+                    .status(200)
+//                    .body("{\"id\":\"1\",\"task\":\"task\",\"dueDate\":\"dueDate\"}")
+                    .body(body)
                 .toPact();
     }
 
