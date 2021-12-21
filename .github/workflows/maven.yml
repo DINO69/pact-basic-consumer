@@ -79,6 +79,7 @@ jobs:
         publish_dir: ./target/pit-reports/*/
 
     - name: pactBroker
+      uses: actions/setup-java@v2
       if: contains(github.ref,'refs/heads/pact')
       with:
         run: mvn pact:publish
