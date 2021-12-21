@@ -77,3 +77,8 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./target/pit-reports/*/
+
+    - name: pactBroker
+        if: github.ref == 'refs/heads/pact'
+        run: mvn pact:publish
+
