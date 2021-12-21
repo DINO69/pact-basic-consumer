@@ -80,5 +80,6 @@ jobs:
 
     - name: pactBroker
         if: github.ref == 'refs/heads/pact'
-        run: mvn pact:publish
+        with:
+          run: mvn pact:publish
 
